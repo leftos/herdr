@@ -1,5 +1,5 @@
 id = "claude"
-version = "2026.10.14.1"
+version = "2026.10.14.2"
 min_engine_version = 2
 updated_at = "2026-10-14T00:00:00Z"
 aliases = ["claude-code"]
@@ -38,10 +38,11 @@ state = "working"
 priority = 960
 region = "after_last_horizontal_rule"
 visible_working = true
-# The footer under the prompt box counts running background shells as a
-# "· N shell" segment. Its "← N agents" segment counts peer sessions, not work
-# owned by this one, so it is deliberately not matched.
-line_regex = ['^\s+\S.*·\s+[1-9]\d*\s+shells?(?:\s+·|\s*$)']
+# The footer under the prompt box counts running background shells and
+# monitors in one segment: "· N shell", "· N monitors", or both joined by a
+# comma ("· 3 shells, 3 monitors"). Its "← N agents" segment counts peer
+# sessions, not work owned by this one, so it is deliberately not matched.
+line_regex = ['^\s+\S.*·\s+[1-9]\d*\s+(?:shells?|monitors?)(?:,|\s+·|\s*$)']
 not = [
   { contains = ["do you want to proceed?"] },
   { contains = ["esc to cancel"] },
